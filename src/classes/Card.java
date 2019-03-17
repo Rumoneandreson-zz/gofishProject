@@ -24,7 +24,7 @@ public class Card{
 	
 /**
  * Copy Constructor
- */
+ */	
 	public Card(Card _card) {
 		this(_card.suite, _card.rank);
 	}
