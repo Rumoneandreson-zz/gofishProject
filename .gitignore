@@ -1,2 +1,12 @@
 # Directories
+# intellij related
 .idea/
+out/
+
+
+# extensions
+*.iml
+
+
+
+
