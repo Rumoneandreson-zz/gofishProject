@@ -30,7 +30,7 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <TextField maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="160.0" />
+                  <TextField alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="160.0" />
                   <Button mnemonicParsing="false" text="Submit">
                      <VBox.margin>
                         <Insets top="10.0" />

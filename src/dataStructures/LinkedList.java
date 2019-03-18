@@ -83,11 +83,13 @@ public class LinkedList {
 	
 /**
  * Search for and remove node from the list
- * @param Node to find
+ * @param Node
  * @return Node removed or null if nothing is removed
  */
 	//TODO implement this method
-	
+	public Node  SearchAndRemove(){
+		return null;
+	}
 	
 	public void display() {
 		Node tmp = head;
