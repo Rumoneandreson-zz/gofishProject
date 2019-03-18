@@ -10,3 +10,16 @@ A playerâ€™s turn ends when the card they asked for is not in the other playerâ€
 The computer AI should not simply keep requesting the first card in its hand but should choose randomly between the options in its hand.
 
 The player with the most personal sets of pairs (largest deck) at the end of game wins. When a game ends the user should be prompted if they would like to play again.
+
+
+
+
+## Instructions for contributors (Intellij)
+
+1. On Start screen of intellij IDE click "checkout from version control" and select git from the dropdown.
+2. Put in the URI for the project and (clicking test is optional) also choose the directory you want the project to be stored locally.
+  * Instruction 2 only works if SSH is setup with your github account if not then click login to github and then place the http URI in the clone URI text field.
+
+
+### To RUN
+1. Follow the insructions at this link (https://openjfx.io/openjfx-docs/)
