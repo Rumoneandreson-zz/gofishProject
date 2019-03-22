@@ -25,8 +25,8 @@ public class Deck {
  * 
  */
 	public Deck() {
-		this.deckOfCards = new Card[52];
-		this.cardsRemaining = 52;
+        this.cardsRemaining = 52;
+	    this.deckOfCards = new Card[this.cardsRemaining];
 		int cardIndexController = 0;
 		
 //		loops through the suites
@@ -63,19 +63,29 @@ public class Deck {
  * @return card
  */
 	public Card dealCard() {		
-		return remove(0);
+		return remove(cardsRemaining - 1);
 	}
 	
 
 	private Card remove(int index) {
-		
+
 		Card tmp = deckOfCards[index];
-		for (int i = index; i < deckOfCards.length - 1; i++) {
-			deckOfCards[i] = deckOfCards[i+1];
-		}
-		
-		cardsRemaining--;
-		
+//		for (int i = index; i < deckOfCards.length - 1; i++) {
+//			deckOfCards[i] = deckOfCards[i+1];
+//		}
+//
+
+
+		deckOfCards[index] = null;
+
+
+		/*
+		52 cards
+
+		 Card c = cards[cards.length]
+		  cards[cards.length] = null
+		  return c;*/
+        cardsRemaining--;
 		return tmp;
 	}
 	
@@ -101,8 +111,10 @@ public class Deck {
  * Display all the cards in the deck
  */
 	public void displayCards() {
-		for (Card cards : deckOfCards) {
-			cards.display();
+		for (Card card : deckOfCards) {
+			if (card != null){
+                card.display();
+            }
 		}
 	}
 }

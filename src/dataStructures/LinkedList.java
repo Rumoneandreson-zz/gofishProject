@@ -26,7 +26,7 @@ public class LinkedList {
 		}
 	}
 	
-	public boolean insertAtFront(Node next) {
+	public boolean insert(Node next) {
 		if (isFull()) {
 			System.out.println("The list is full");
 		} else {
@@ -41,60 +41,59 @@ public class LinkedList {
 		}
 		return false;
 	}
-	
-	
-	public boolean insertAtBack(Node next) {
-		if (isFull()) {
-			System.out.println("The list is full");
-		} else {
-			if (isEmpty()) {
-				head = next;
-			} else {
-				Node tmp = head;
-				
-				while (tmp.getNext() != null) {
-					tmp = tmp.getNext();
-				}
-				
-				tmp.setNext(next);
-			}
-			return true;
-		}
-		return false;
-	}
-	
-	public Node removeFromFront() {
-		
-//		head to the next value after current head
-		
-		if (isEmpty()) {
-			System.out.println("No item to be removed");
-		} else {
+
+	/**
+	 * finds a node passed in and returns it
+	 * @param item_to_find
+	 * @return node found or null
+	 */
+	public Node search(Node item_to_find){
+		if (isEmpty()){
+			//change the way this is handled
+			System.out.println("There is nothing in the list to find");
+		}else{
 			Node tmp = head;
-			head = head.getNext();
-			Node data = tmp;
-			tmp = null;
-			return data;
+			while (tmp.getNext() != null) {
+				if (tmp.getData().getRank().equals(item_to_find.getData().getRank()))
+					return new Node(tmp.getData());
+				tmp = tmp.getNext();
+			}
 		}
-		
 		return null;
 	}
-	
-	
-/**
- * Search for and remove node from the list
- * @param Node
- * @return Node removed or null if nothing is removed
- */
-	//TODO implement this method
-	public Node  SearchAndRemove(){
+
+	public Node remove(String cardRank){
+		if (!isEmpty()){
+			Node tmp = head;
+			Node prev = head;
+			Node card_removed = new Node();
+			while (tmp != null){
+				if (head.getData().getRank().equals(cardRank)) {
+					tmp = head.getNext();
+					card_removed = head;
+					head = null;
+					head = tmp;
+					return card_removed;
+				} else {
+					if (tmp.getData().getRank().equals(cardRank)){
+						prev.setNext(tmp.getNext());
+						card_removed = tmp;
+						tmp = null;
+						return card_removed;
+					}
+				}
+				prev = tmp;
+				tmp = tmp.getNext();
+			}
+		}
 		return null;
 	}
-	
+
+
 	public void display() {
 		Node tmp = head;
 		while (tmp != null) {
-			tmp.getData();
+			tmp.getData().display();
 			tmp = tmp.getNext();
 		}
 	}

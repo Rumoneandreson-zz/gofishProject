@@ -12,16 +12,15 @@ public class Hand {
 	public Hand() {
 		this.hand = new LinkedList();
 	}
-	
-	
-//	return card from hand	
-//  remove card from the hand linked list	
-//	add cards to list	
 
 	
 //	check for a book
 	
 
+    public boolean check_for_book(){
+
+	    return false;
+    }
 
 /**
  * Add cards to the users hand
@@ -30,16 +29,20 @@ public class Hand {
  */	
 	public boolean addCard(Card newCard) {
 		Node card = new Node(newCard);
-		return hand.insertAtFront(card);
+		return hand.insert(card);
 	}
-	
 
-/**
- * removes a card from the front of the list	
- * @return returns card
- */
-	public Card removeCard() {
-		Card newCard = new Card(hand.removeFromFront().getData());
-		return newCard;
+
+
+
+
+	public Card removeCard(String card_to_remove) {
+		Node newCard = hand.remove(card_to_remove);
+		return newCard.getData();
+	}
+
+	public void showCards(){
+//		call the display
+		hand.display();
 	}
 }

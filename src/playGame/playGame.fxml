@@ -52,12 +52,7 @@
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="86.0" layoutY="124.0" text="Computer" textFill="WHITE">
-                     <font>
-                        <Font size="35.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="260.0" layoutY="124.0" text="'s Turn" textFill="WHITE">
+                  <Label layoutX="70" layoutY="124.0" text="Computer's Turn" textFill="WHITE">
                      <font>
                         <Font size="35.0" />
                      </font>

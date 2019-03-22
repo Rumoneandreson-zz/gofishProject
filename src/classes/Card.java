@@ -28,8 +28,24 @@ public class Card{
 	public Card(Card _card) {
 		this(_card.suite, _card.rank);
 	}
-	
-	
+
+
+	public String getSuite() {
+		return suite;
+	}
+
+	public void setSuite(String suite) {
+		this.suite = suite;
+	}
+
+	public String getRank() {
+		return rank;
+	}
+
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
+
 	@Override
 	public String toString() {
 		return "Card [suite=" + suite + ", rank=" + rank + "]";
