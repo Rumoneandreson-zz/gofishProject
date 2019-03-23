@@ -10,12 +10,12 @@ public class LinkedList {
 	}	
 	
 	
-	public boolean isEmpty() {
+	private boolean isEmpty() {
 		return head == null;
 	}
 	
 	@SuppressWarnings("unused")
-	public boolean isFull() {
+	private boolean isFull() {
 		Node tmp = new Node();
 		
 		if (tmp == null) {
@@ -89,6 +89,50 @@ public class LinkedList {
 		return null;
 	}
 
+
+	public boolean isThereAPair(){
+//	    get the first element
+        Node tmp = head;
+//      sets the current card to head
+        Node current = head;
+
+//      loop until another one of the same type
+        while (current != null){
+            while (tmp != null){
+
+                if (tmp.getData().getRank().equals(current.getData().getRank())) {
+                    if (!tmp.getData().getSuite().equals(current.getData().getSuite())){
+                        System.out.println("pair found");
+
+//                      remove both cards since as the pair is found
+                        remove(tmp.getData().getRank());
+                        remove(current.getData().getRank());
+                        return true;
+                    }
+                }
+                tmp = tmp.getNext();
+            }
+            current = current.getNext();
+        }
+
+
+	    return false;
+    }
+
+    public Node returnNode(int index){
+		Node tmp = head;
+		int i = 0;
+		Node node_card;
+		while (tmp != null) {
+			if (i == index) {
+				node_card = tmp;
+				return node_card;
+			}
+			i++;
+			tmp = tmp.getNext();
+		}
+		return null;
+	}
 
 	public void display() {
 		Node tmp = head;

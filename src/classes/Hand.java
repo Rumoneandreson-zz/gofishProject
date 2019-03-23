@@ -8,41 +8,54 @@ public class Hand {
  */
 	
 	private LinkedList hand;
-		
+	private int books;
+	private int handCounter;
+
 	public Hand() {
+		this.handCounter = 0;
 		this.hand = new LinkedList();
 	}
 
-	
-//	check for a book
-	
-
-    public boolean check_for_book(){
-
-	    return false;
+    public int getBooks() {
+        return books;
     }
 
-/**
+	public int getHandCounter() {
+		return handCounter;
+	}
+
+	public LinkedList getHand() {
+		return hand;
+	}
+
+	/**
  * Add cards to the users hand
  * @param newCard
  * @return true if the card was added successfully and false if not
- */	
+ */
 	public boolean addCard(Card newCard) {
 		Node card = new Node(newCard);
+		handCounter++;
 		return hand.insert(card);
 	}
 
-
-
-
-
 	public Card removeCard(String card_to_remove) {
 		Node newCard = hand.remove(card_to_remove);
+		handCounter--;
 		return newCard.getData();
 	}
 
-	public void showCards(){
-//		call the display
-		hand.display();
-	}
+    public void showCards(){
+        hand.display();
+    }
+
+    public boolean checkforBook(){
+	    if (hand.isThereAPair()){
+	    	handCounter -= 2;
+	        books++;
+	        return false;
+        }
+	    return true;
+    }
+
 }

@@ -5,7 +5,9 @@ public class Card{
 //	properties of the card
 	private String suite;
 	private String rank;
-	
+
+	private static final int width = 130;
+	private static final int height = 180;
 /**
  * Primary Constructors
  * @param suite

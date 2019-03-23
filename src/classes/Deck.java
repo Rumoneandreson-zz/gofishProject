@@ -30,13 +30,15 @@ public class Deck {
 		int cardIndexController = 0;
 		
 //		loops through the suites
-		for (int i = 0; i < SUITS.length; i++) {
+		for (String suit: SUITS) {
 //			loops through rank for each suit
-			for (int j = 0; j < RANKS.length; j++) {
-				deckOfCards[cardIndexController] = new Card(SUITS[i], RANKS[j]);
+			for (String rank: RANKS) {
+				deckOfCards[cardIndexController] = new Card(suit, rank);
 				cardIndexController++;
 			}
 		}
+
+		Shuffle();
 	}
 	
 
@@ -65,26 +67,15 @@ public class Deck {
 	public Card dealCard() {		
 		return remove(cardsRemaining - 1);
 	}
-	
 
+    /**
+     * removes the last index in the array and returns it changes the Big o to constant from linear when removing from top
+      * @param index
+     * @return tmp the card
+     */
 	private Card remove(int index) {
-
 		Card tmp = deckOfCards[index];
-//		for (int i = index; i < deckOfCards.length - 1; i++) {
-//			deckOfCards[i] = deckOfCards[i+1];
-//		}
-//
-
-
 		deckOfCards[index] = null;
-
-
-		/*
-		52 cards
-
-		 Card c = cards[cards.length]
-		  cards[cards.length] = null
-		  return c;*/
         cardsRemaining--;
 		return tmp;
 	}
@@ -93,7 +84,7 @@ public class Deck {
 /*
  * Shuffles the deck of cards 
  */
-	public void Shuffle() {
+	private void Shuffle() {
 		Random randomCardIndex = new Random();
 		
 		for (int i = 0; i < deckOfCards.length; i++) {
