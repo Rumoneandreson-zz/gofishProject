@@ -24,6 +24,10 @@ public class Hand {
 		return handCounter;
 	}
 
+	public void setBooks() {
+		books++;
+	}
+
 	public LinkedList getHand() {
 		return hand;
 	}
@@ -39,10 +43,10 @@ public class Hand {
 		return hand.insert(card);
 	}
 
-	public Card removeCard(String card_to_remove) {
+	public Node removeCard(String card_to_remove) {
 		Node newCard = hand.remove(card_to_remove);
 		handCounter--;
-		return newCard.getData();
+		return newCard;
 	}
 
     public void showCards(){
@@ -53,9 +57,9 @@ public class Hand {
 	    if (hand.isThereAPair()){
 	    	handCounter -= 2;
 	        books++;
-	        return false;
+	        return true;
         }
-	    return true;
+	    return false;
     }
 
 }

@@ -47,19 +47,19 @@ public class LinkedList {
 	 * @param item_to_find
 	 * @return node found or null
 	 */
-	public Node search(Node item_to_find){
+	public boolean search(String item_to_find){
 		if (isEmpty()){
 			//change the way this is handled
 			System.out.println("There is nothing in the list to find");
 		}else{
 			Node tmp = head;
 			while (tmp.getNext() != null) {
-				if (tmp.getData().getRank().equals(item_to_find.getData().getRank()))
-					return new Node(tmp.getData());
+				if (tmp.getData().getRank().equals(item_to_find))
+					return true;
 				tmp = tmp.getNext();
 			}
 		}
-		return null;
+		return false;
 	}
 
 	public Node remove(String cardRank){
@@ -91,13 +91,14 @@ public class LinkedList {
 
 
 	public boolean isThereAPair(){
-//	    get the first element
-        Node tmp = head;
+
 //      sets the current card to head
         Node current = head;
 
 //      loop until another one of the same type
         while (current != null){
+//		    get the first element
+			Node tmp = head;
             while (tmp != null){
 
                 if (tmp.getData().getRank().equals(current.getData().getRank())) {

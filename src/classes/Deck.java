@@ -76,7 +76,7 @@ public class Deck {
 	private Card remove(int index) {
 		Card tmp = deckOfCards[index];
 		deckOfCards[index] = null;
-        cardsRemaining--;
+			cardsRemaining--;
 		return tmp;
 	}
 	
