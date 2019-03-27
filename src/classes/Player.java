@@ -17,4 +17,8 @@ public class Player {
     public Hand getPlayer_hand() {
         return player_hand;
     }
+
+    public void setPlayer_hand(Hand player_hand) {
+        this.player_hand = player_hand;
+    }
 }

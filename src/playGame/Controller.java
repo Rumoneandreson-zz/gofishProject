@@ -4,7 +4,6 @@ import classes.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -15,6 +14,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
@@ -37,9 +37,6 @@ public class Controller {
 
     @FXML
     private Label cardRemainingcount;
-
-    @FXML
-    private Label determine_Turn;
 
     @FXML
     private Label bookCounter_computer;
@@ -72,40 +69,29 @@ public class Controller {
         bookCounter_computer.setText(Integer.toString(computer_player.getPlayer_hand().getBooks()));
 
         // renders original cards
-
-        HumanPanel.getChildren().clear();
         for (int i = 0; i < human_player.getPlayer_hand().getHandCounter(); i++) {
             Card cardNode = human_player.getPlayer_hand().getHand().returnNode(i).getData();
             renderHumanCards(cardNode);
         }
 
-        ComputerPanel.getChildren().clear();
         for (int i = 0; i < computer_player.getPlayer_hand().getHandCounter(); i++) {
             renderComputerCards();
         }
 
-
         //TODO timeout
 
-        computer_player.getPlayer_hand().showCards();
 
-        /**
-         * At the start of the game any player can get 2 books
-         * max this will check if there is a book and if one is found
-         * check for another
-         */
+        // debug
+//        computer_player.getPlayer_hand().showCards();
+
         if (human_player.getPlayer_hand().checkforBook())
             human_player.getPlayer_hand().checkforBook();
 
-        if (computer_player.getPlayer_hand().checkforBook())
-            computer_player.getPlayer_hand().checkforBook();
-
-        // check for book
+//        if (computer_player.getPlayer_hand().checkforBook())
+//            computer_player.getPlayer_hand().checkforBook();
 
 
-
-
-
+        // displays all the cards in play
         bookCounter_human.setText(Integer.toString(human_player.getPlayer_hand().getBooks()));
         HumanPanel.getChildren().clear();
         for (int i = 0; i < human_player.getPlayer_hand().getHandCounter(); i++) {
@@ -113,16 +99,13 @@ public class Controller {
             renderHumanCards(cardNode);
         }
 
+//        bookCounter_computer.setText(Integer.toString(computer_player.getPlayer_hand().getBooks()));
+//        ComputerPanel.getChildren().clear();
+//        for (int i = 0; i < computer_player.getPlayer_hand().getHandCounter(); i++) {
+//            renderComputerCards();
+//        }
 
-        bookCounter_computer.setText(Integer.toString(computer_player.getPlayer_hand().getBooks()));
-        ComputerPanel.getChildren().clear();
-        for (int i = 0; i < computer_player.getPlayer_hand().getHandCounter(); i++) {
-            renderComputerCards();
-        }
-
-
-        // displays all the cards in play
-
+        Alert.Alert("Turn", "Human go first", "close");
     }
 
     @FXML
@@ -132,67 +115,89 @@ public class Controller {
 
         process_request(cardRank, human_player);
 
+        if (human_player.getPlayer_hand().getHandCounter() == 0){
+            human_player.setPlayer_hand(createHand());
+        }
+
 
         // in case there is a book after player had to go fish
         if (human_player.getPlayer_hand().checkforBook()) {
             human_player.getPlayer_hand().checkforBook();
         }
 
+        // after all this computers turn
+        // change to represent computer's turn
+        System.out.println("Computer's Turn");
 
+//        clear text box
+        cardRequestBox.setText("");
+
+
+
+//        updates gui
         bookCounter_human.setText(Integer.toString(human_player.getPlayer_hand().getBooks()));
         cardRemainingcount.setText(Integer.toString(cards.getCardsRemaining()));
-
-        ComputerPanel.getChildren().clear();
-        for (int i = 0; i < computer_player.getPlayer_hand().getHandCounter(); i++) {
-            renderComputerCards();
-        }
 
         HumanPanel.getChildren().clear();
         for (int i = 0; i < human_player.getPlayer_hand().getHandCounter(); i++) {
             Card cardNode = human_player.getPlayer_hand().getHand().returnNode(i).getData();
             renderHumanCards(cardNode);
         }
-        // search for card in computer's hand
 
-        // if card is there return card
-        // set returned card to null
-        // set card in player hand to null
-        // increment book counter
+        Alert.Alert("Turn", "Computer's Turn", "OK");
+        computer_turn();
 
+//        ComputerPanel.getChildren().clear();
+//        for (int i = 0; i < computer_player.getPlayer_hand().getHandCounter(); i++) {
+//            renderComputerCards();
+//        }
 
-        // if the card is not in player hand draw from deck add to the list and check for book
+        Alert.Alert("Turn", "Your Turn", "OK");
+    }
 
+    private void computer_turn(){
+        // in a turn player request card
+        String card_requested = request_card(human_player.getPlayer_hand());
 
-        // after all this computers turn
+//        display card request
+        Alert.Alert("Computer request", "The computer requested a " + card_requested, "OK");
+        process_request(card_requested, computer_player);
 
-        // computer completes turn and the action of requesting a card will need to happen again
+        // check if computer hand is empty
+        if (computer_player.getPlayer_hand().getHandCounter() == 0){
+            for (int i = 0; i < 5; i++) {
+                computer_player.getPlayer_hand().addCard(cards.dealCard());
+            }
+        }
+
+        // check for a book
+        if (computer_player.getPlayer_hand().checkforBook()){
+            computer_player.getPlayer_hand().checkforBook();
+        }
+
+        // re render the books in computer hand
+        bookCounter_computer.setText(Integer.toString(computer_player.getPlayer_hand().getBooks()));
+        //Back to human player's turn
+        // re enable the submit button on the GUI
+
+        ComputerPanel.getChildren().clear();
+        for (int i = 0; i < computer_player.getPlayer_hand().getHandCounter(); i++) {
+            renderComputerCards();
+        }
+
+        System.out.println("Human's Turn");
 
     }
 
     private Hand createHand() {
         Hand new_hand = new Hand();
+        // check if the deck is empty else null pointer exception
+
         for (int i = 0; i < 5; i++) {
             new_hand.addCard(cards.dealCard());
         }
         return new_hand;
     }
-
-
-    //TODO look into why these methods dont work
-//    private void displayHumanCards() {
-//        HumanPanel.getChildren().clear();
-//        for (int i = 0; i < human_player.getPlayer_hand().getHandCounter(); i++) {
-//            Card cardNode = human_player.getPlayer_hand().getHand().returnNode(i).getData();
-//            renderHumanCards(cardNode);
-//        }
-//    }
-//
-//    private void displayComputerCards() {
-//        ComputerPanel.getChildren().clear();
-//        for (int i = 0; i < computer_player.getPlayer_hand().getHandCounter(); i++) {
-//            renderComputerCards();
-//        }
-//    }
 
     private void renderHumanCards(Card card) {
 
@@ -228,6 +233,7 @@ public class Controller {
     private void process_request(String rank, Player playerhand){
         //TODO fix error in checking rank
 
+
         if (playerhand.getPlayer_hand().getHand().search(rank)){
             if (playerhand.getClass() == Human.class){
                 // search other player hand for the cards and remove it and increment your counter by one
@@ -237,22 +243,80 @@ public class Controller {
                     human_player.getPlayer_hand().removeCard(rank);
 
                     //debug
-                    computer_player.getPlayer_hand().showCards();
+//                    computer_player.getPlayer_hand().showCards();
                     human_player.getPlayer_hand().setBooks();
                 } else {
 //                    player does not have card
-                    System.out.println("Player does not have card go fish");
+                    Alert.Alert("Go Fishing", "", "GO FISH");
 
                     // go fish add card to the player hand
                     // re render
-                    human_player.getPlayer_hand().addCard(cards.dealCard());
+                    var card = cards.dealCard();
+                    Alert.Alert("New Card", "You got " + card.getRank() + " of " + card.getSuite() + " from the deck ", "close");
+                    human_player.getPlayer_hand().addCard(card);
                 }
             }else{
-                //computer request tasks
+                if (human_player.getPlayer_hand().getHand().search(rank)){
+
+                    computer_player.getPlayer_hand().removeCard(rank);
+                    human_player.getPlayer_hand().removeCard(rank);
+
+                    // re render human hand
+                    HumanPanel.getChildren().clear();
+                    for (int i = 0; i < human_player.getPlayer_hand().getHandCounter(); i++) {
+                        Card cardNode = human_player.getPlayer_hand().getHand().returnNode(i).getData();
+                        renderHumanCards(cardNode);
+                    }
+                    //debug
+//                    computer_player.getPlayer_hand().showCards();
+                    computer_player.getPlayer_hand().setBooks();
+
+                } else {
+                    // player does not have card
+                    Alert.Alert("Go Fishing", "", "Computer GO FISH");
+                    // go fish add card to the player hand
+                    // re render
+                    var card = cards.dealCard();
+//                    alert card recieved
+                    computer_player.getPlayer_hand().addCard(card);
+                }
             }
         }else{
             // handle card not being
             System.out.println("card is not in your hand");
+            Alert.CardNotInHand();
+            var card = cards.dealCard();
+            playerhand.getPlayer_hand().addCard(card);
         }
+    }
+
+
+//HOW
+//checks all the cards in the players hand finds a match and request that card
+//checks all the cards in his hand
+//does this a set amount of times and then messes up a set amount of time
+//for every 2 victory request there are 3 failed
+    private String request_card(Hand playerHand) {
+//        loop through each node in the computers hand
+        Node tmp_cpu = computer_player.getPlayer_hand().getHand().getHead();
+
+        Random randomCard = new Random();
+//        gets a random number for card
+        int cardNumber = randomCard.nextInt(computer_player.getPlayer_hand().getHandCounter());
+
+
+        while (tmp_cpu != null) {
+            if (playerHand.getHand().search(tmp_cpu.getData().getRank())){
+//                ask for card that returned true
+                return tmp_cpu.getData().getRank();
+            }
+            if (cardNumber == 0){
+                break;
+            }
+
+            cardNumber--;
+            tmp_cpu = tmp_cpu.getNext();
+        }
+        return tmp_cpu.getData().getRank();
     }
 }

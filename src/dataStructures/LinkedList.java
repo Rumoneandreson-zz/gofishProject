@@ -7,9 +7,12 @@ public class LinkedList {
 	
 	public LinkedList() {
 		this.head = null;
-	}	
-	
-	
+	}
+
+	public Node getHead() {
+		return head;
+	}
+
 	private boolean isEmpty() {
 		return head == null;
 	}
@@ -53,7 +56,7 @@ public class LinkedList {
 			System.out.println("There is nothing in the list to find");
 		}else{
 			Node tmp = head;
-			while (tmp.getNext() != null) {
+			while (tmp != null) {
 				if (tmp.getData().getRank().equals(item_to_find))
 					return true;
 				tmp = tmp.getNext();
@@ -103,8 +106,6 @@ public class LinkedList {
 
                 if (tmp.getData().getRank().equals(current.getData().getRank())) {
                     if (!tmp.getData().getSuite().equals(current.getData().getSuite())){
-                        System.out.println("pair found");
-
 //                      remove both cards since as the pair is found
                         remove(tmp.getData().getRank());
                         remove(current.getData().getRank());
