@@ -47,6 +47,9 @@ public class Controller {
     @FXML
     private Label bookCounter_human;
 
+    @FXML
+    private Button InstructBtn;
+
 
     // initializes deck
     private static final Deck cards = new Deck();
@@ -66,7 +69,9 @@ public class Controller {
         // update card remaining counter
         cardRemainingcount.setText(Integer.toString(cards.getCardsRemaining()));
         bookCounter_human.setText(Integer.toString(human_player.getPlayer_hand().getBooks()));
-        bookCounter_computer.setText(Integer.toString(computer_player.getPlayer_hand().getBooks()));
+        InstructBtn.setDisable(true);
+
+
 
         // renders original cards
         for (int i = 0; i < human_player.getPlayer_hand().getHandCounter(); i++) {
@@ -106,6 +111,10 @@ public class Controller {
 //        }
 
         Alert.Alert("Turn", "Human go first", "close");
+
+//          enable the button for submit
+        submitBtn.setDisable(false);
+        cardRequestBox.setDisable(false);
     }
 
     @FXML
@@ -155,9 +164,20 @@ public class Controller {
         Alert.Alert("Turn", "Your Turn", "OK");
     }
 
+    @FXML
+    void instructions(ActionEvent event){
+        Alert.Instructions();
+    }
+
+
     private void computer_turn(){
         // in a turn player request card
         String card_requested = request_card(human_player.getPlayer_hand());
+
+
+//          enable the button for submit
+        submitBtn.setDisable(true);
+        cardRequestBox.setDisable(true);
 
 //        display card request
         Alert.Alert("Computer request", "The computer requested a " + card_requested, "OK");
@@ -186,6 +206,10 @@ public class Controller {
         }
 
         System.out.println("Human's Turn");
+
+//          enable the button for submit
+        submitBtn.setDisable(false);
+        cardRequestBox.setDisable(false);
 
     }
 

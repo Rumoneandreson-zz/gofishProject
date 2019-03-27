@@ -30,8 +30,8 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <TextField fx:id="cardRequestBox" alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="160.0" />
-                  <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#submitCardRequest" text="Submit">
+                  <TextField fx:id="cardRequestBox" alignment="CENTER" disable="true" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="160.0" />
+                  <Button fx:id="submitBtn" mnemonicParsing="false" disable="true" onAction="#submitCardRequest" text="Submit">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></Button>
@@ -83,7 +83,7 @@
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="startGameBtn" mnemonicParsing="false" onAction="#startGame" text="Start Game" />
-                  <Button mnemonicParsing="false" text="Instructions">
+                  <Button fx:id="InstructBtn" mnemonicParsing="false" text="Instructions" onAction="#instructions">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
