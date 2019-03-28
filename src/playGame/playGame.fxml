@@ -30,7 +30,7 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <TextField fx:id="cardRequestBox" alignment="CENTER" disable="true" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="160.0" />
+                  <TextField fx:id="cardRequestBox" alignment="CENTER" disable="true" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="160.0" onAction="#submitCardRequest" />
                   <Button fx:id="submitBtn" mnemonicParsing="false" disable="true" onAction="#submitCardRequest" text="Submit">
                      <VBox.margin>
                         <Insets top="10.0" />

@@ -64,7 +64,69 @@ public class Controller {
 
     @FXML
     void startGame(ActionEvent event) {
+        Start();
+    }
 
+    @FXML
+    void submitCardRequest(ActionEvent event) {
+
+        // player requests a card
+        String cardRank = cardRequestBox.getText();
+
+        // process the card requested
+        process_request(cardRank, human_player);
+
+        // set hand to be hand linked list
+        if (human_player.getPlayer_hand().getHandCounter() == 0){
+            human_player.setPlayer_hand(createHand());
+        }
+
+        // in case there is a book after player had to go fish
+        if (human_player.getPlayer_hand().checkforBook()) {
+            human_player.getPlayer_hand().checkforBook();
+        }
+
+        // clear text box
+        cardRequestBox.setText("");
+
+
+        // updates gui
+        bookCounter_human.setText(Integer.toString(human_player.getPlayer_hand().getBooks()));
+        cardRemainingcount.setText(Integer.toString(cards.getCardsRemaining()));
+
+        // clears the human hand
+        HumanPanel.getChildren().clear();
+        for (int i = 0; i < human_player.getPlayer_hand().getHandCounter(); i++) {
+            Card cardNode = human_player.getPlayer_hand().getHand().returnNode(i).getData();
+            renderHumanCards(cardNode);
+        }
+
+
+        // starts the computers turn
+        /**
+         * Computer's turn will determine the card that it wants to request and then
+         * request it with process_request() method
+         */
+        Alert.Alert("Turn", "Computer's Turn", "OK");
+        computer_turn();
+
+        // check if there is winner
+        isWinner();
+
+        // end of the computer's turn
+        Alert.Alert("Turn", "Your Turn", "OK");
+
+        // enable button to be used to submit card request
+        submitBtn.setDisable(false);
+        cardRequestBox.setDisable(false);
+    }
+
+    @FXML
+    void instructions(ActionEvent event){
+        Alert.Instructions();
+    }
+
+    private void Start(){
 
         // update card remaining counter
         cardRemainingcount.setText(Integer.toString(cards.getCardsRemaining()));
@@ -83,103 +145,53 @@ public class Controller {
             renderComputerCards();
         }
 
-        //TODO timeout
+        // shows alert to inform human player goes first
+        Alert.Alert("Turn", "Human go first", "close");
 
-
-        // debug
-//        computer_player.getPlayer_hand().showCards();
-
+        /**
+         * Rationale
+         * At the start of the game there are only two books possible
+         * Therefore it checks if there is one and if so then it checks for another
+         */
         if (human_player.getPlayer_hand().checkforBook())
             human_player.getPlayer_hand().checkforBook();
 
-//        if (computer_player.getPlayer_hand().checkforBook())
-//            computer_player.getPlayer_hand().checkforBook();
 
-
-        // displays all the cards in play
+        // displays all the cards in play and re renders book
         bookCounter_human.setText(Integer.toString(human_player.getPlayer_hand().getBooks()));
+        // clears the panel
         HumanPanel.getChildren().clear();
         for (int i = 0; i < human_player.getPlayer_hand().getHandCounter(); i++) {
             Card cardNode = human_player.getPlayer_hand().getHand().returnNode(i).getData();
             renderHumanCards(cardNode);
         }
 
-//        bookCounter_computer.setText(Integer.toString(computer_player.getPlayer_hand().getBooks()));
-//        ComputerPanel.getChildren().clear();
-//        for (int i = 0; i < computer_player.getPlayer_hand().getHandCounter(); i++) {
-//            renderComputerCards();
-//        }
 
-        Alert.Alert("Turn", "Human go first", "close");
-
-//          enable the button for submit
+        // enable the button for submit
         submitBtn.setDisable(false);
         cardRequestBox.setDisable(false);
     }
 
-    @FXML
-    void submitCardRequest(ActionEvent event) {
-        // player requests a card
-        String cardRank = cardRequestBox.getText();
 
-        process_request(cardRank, human_player);
-
-        if (human_player.getPlayer_hand().getHandCounter() == 0){
-            human_player.setPlayer_hand(createHand());
+    private void isWinner(){
+        if (computer_player.getPlayer_hand().getBooks() >= 26){
+            Alert.Alert("You Won", "You beat me nigga well done", "END");
         }
-
-
-        // in case there is a book after player had to go fish
-        if (human_player.getPlayer_hand().checkforBook()) {
-            human_player.getPlayer_hand().checkforBook();
+        if (computer_player.getPlayer_hand().getBooks() >= 26){
+            Alert.Alert("Computer Won", "I won hahaha try again", "END");
         }
-
-        // after all this computers turn
-        // change to represent computer's turn
-        System.out.println("Computer's Turn");
-
-//        clear text box
-        cardRequestBox.setText("");
-
-
-
-//        updates gui
-        bookCounter_human.setText(Integer.toString(human_player.getPlayer_hand().getBooks()));
-        cardRemainingcount.setText(Integer.toString(cards.getCardsRemaining()));
-
-        HumanPanel.getChildren().clear();
-        for (int i = 0; i < human_player.getPlayer_hand().getHandCounter(); i++) {
-            Card cardNode = human_player.getPlayer_hand().getHand().returnNode(i).getData();
-            renderHumanCards(cardNode);
-        }
-
-        Alert.Alert("Turn", "Computer's Turn", "OK");
-        computer_turn();
-
-//        ComputerPanel.getChildren().clear();
-//        for (int i = 0; i < computer_player.getPlayer_hand().getHandCounter(); i++) {
-//            renderComputerCards();
-//        }
-
-        Alert.Alert("Turn", "Your Turn", "OK");
     }
-
-    @FXML
-    void instructions(ActionEvent event){
-        Alert.Instructions();
-    }
-
 
     private void computer_turn(){
         // in a turn player request card
         String card_requested = request_card(human_player.getPlayer_hand());
 
 
-//          enable the button for submit
+        // enable the button for submit
         submitBtn.setDisable(true);
         cardRequestBox.setDisable(true);
 
-//        display card request
+        // display card request
         Alert.Alert("Computer request", "The computer requested a " + card_requested, "OK");
         process_request(card_requested, computer_player);
 
@@ -197,26 +209,18 @@ public class Controller {
 
         // re render the books in computer hand
         bookCounter_computer.setText(Integer.toString(computer_player.getPlayer_hand().getBooks()));
+
         //Back to human player's turn
         // re enable the submit button on the GUI
-
         ComputerPanel.getChildren().clear();
         for (int i = 0; i < computer_player.getPlayer_hand().getHandCounter(); i++) {
             renderComputerCards();
         }
-
-        System.out.println("Human's Turn");
-
-//          enable the button for submit
-        submitBtn.setDisable(false);
-        cardRequestBox.setDisable(false);
-
     }
 
     private Hand createHand() {
         Hand new_hand = new Hand();
         // check if the deck is empty else null pointer exception
-
         for (int i = 0; i < 5; i++) {
             new_hand.addCard(cards.dealCard());
         }
@@ -224,7 +228,6 @@ public class Controller {
     }
 
     private void renderHumanCards(Card card) {
-
         Rectangle bg = new Rectangle(width, height);
         bg.setArcHeight(5);
         bg.setArcWidth(5);
@@ -241,7 +244,6 @@ public class Controller {
     }
 
     private void renderComputerCards() {
-
         Rectangle bg = new Rectangle(width, height);
         bg.setArcHeight(5);
         bg.setArcWidth(5);
@@ -266,11 +268,11 @@ public class Controller {
                     computer_player.getPlayer_hand().removeCard(rank);
                     human_player.getPlayer_hand().removeCard(rank);
 
-                    //debug
-//                    computer_player.getPlayer_hand().showCards();
+                    // debug
+                    // computer_player.getPlayer_hand().showCards();
                     human_player.getPlayer_hand().setBooks();
                 } else {
-//                    player does not have card
+                    // player does not have card
                     Alert.Alert("Go Fishing", "", "GO FISH");
 
                     // go fish add card to the player hand
@@ -285,7 +287,7 @@ public class Controller {
                     computer_player.getPlayer_hand().removeCard(rank);
                     human_player.getPlayer_hand().removeCard(rank);
 
-                    // re render human hand
+                    // re-render human hand
                     HumanPanel.getChildren().clear();
                     for (int i = 0; i < human_player.getPlayer_hand().getHandCounter(); i++) {
                         Card cardNode = human_player.getPlayer_hand().getHand().returnNode(i).getData();

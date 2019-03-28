@@ -40,12 +40,15 @@ public class Deck {
 
 		Shuffle();
 	}
-	
 
-/**
- * get deckOfCards
- * @return array of cards (DECK)
- */
+	public void setCardsRemaining() {
+		this.cardsRemaining--;
+	}
+
+	/**
+	 * get deckOfCards
+	 * @return array of cards (DECK)
+	 */
 	public Card[] getDeckOfCard() {
 		return deckOfCards;
 	}
@@ -57,13 +60,13 @@ public class Deck {
 	
 	
 	
-//	Game Methods
+	//	Game Methods
 
-/**
- * Deals a single card from the deck	
- * Card will always be from the top so the 0 index
- * @return card
- */
+	/**
+	 * Deals a single card from the deck
+	 * Card will always be from the top so the 0 index
+	 * @return card
+	 */
 	public Card dealCard() {		
 		return remove(cardsRemaining - 1);
 	}
@@ -74,22 +77,25 @@ public class Deck {
      * @return tmp the card
      */
 	private Card remove(int index) {
-		Card tmp = deckOfCards[index];
-		deckOfCards[index] = null;
+		if (cardsRemaining != 0){
+			Card tmp = deckOfCards[index];
+			deckOfCards[index] = null;
 			cardsRemaining--;
-		return tmp;
+			return tmp;
+		}
+		return null;
 	}
 	
-	
-/*
- * Shuffles the deck of cards 
- */
+
+	/*
+	 * Shuffles the deck of cards
+	 */
 	private void Shuffle() {
 		Random randomCardIndex = new Random();
 		
 		for (int i = 0; i < deckOfCards.length; i++) {
 			
-//			generates a random number between 0 and the size of the deck 52
+			// generates a random number between 0 and the size of the deck 52
 			int tmpIndex = randomCardIndex.nextInt(deckOfCards.length);
 			Card tmp  = deckOfCards[i];
 			deckOfCards[i] = deckOfCards[tmpIndex];
