@@ -2,31 +2,32 @@ package classes;
 
 public class Card{
 
-//	properties of the card
+	//	properties of the card
 	private String suite;
 	private String rank;
 
 	private static final int width = 130;
 	private static final int height = 180;
-/**
- * Primary Constructors
- * @param suite
- * @param rank
- */
+
+	/**
+	 * Primary Constructors
+	 * @param suite
+	 * @param rank
+	 */
 	public Card(String suite, String rank) {
 		this.suite = suite;
 		this.rank = rank;
 	}
-	
-/**
- * Default Constructor
- */
+
+	/**
+	 * Default Constructor
+	 */
 	public Card() {this("", "");}
-	
-	
-/**
- * Copy Constructor
- */
+
+
+	/**
+	 * Copy Constructor
+	 */
 	public Card(Card _card) {
 		this(_card.suite, _card.rank);
 	}
@@ -52,10 +53,10 @@ public class Card{
 	public String toString() {
 		return "Card [suite=" + suite + ", rank=" + rank + "]";
 	}
-	
-/**
- * displays card information
- */
+
+	/**
+	 * displays card information
+	 */
 	public void display() {
 		System.out.println(toString());
 	}

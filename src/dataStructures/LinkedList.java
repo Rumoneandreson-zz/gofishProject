@@ -13,7 +13,7 @@ public class LinkedList {
 		return head;
 	}
 
-	private boolean isEmpty() {
+	public boolean isEmpty() {
 		return head == null;
 	}
 	
@@ -51,13 +51,13 @@ public class LinkedList {
 	 * @return node found or null
 	 */
 	public boolean search(String item_to_find){
-		if (isEmpty()){
+	    if (isEmpty()){
 			//change the way this is handled
 			System.out.println("There is nothing in the list to find");
 		}else{
 			Node tmp = head;
 			while (tmp != null) {
-				if (tmp.getData().getRank().equals(item_to_find))
+				if (tmp.getData().getRank().toLowerCase().equals(item_to_find.toLowerCase()))
 					return true;
 				tmp = tmp.getNext();
 			}

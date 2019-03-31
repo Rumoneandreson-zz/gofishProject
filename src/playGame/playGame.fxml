@@ -51,13 +51,6 @@
          </right>
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <!--<children>-->
-                  <!--<Label fx:id="determine_Turn" layoutX="66.0" layoutY="126.0" prefHeight="54.0" prefWidth="313.0" text="Computer's Turn" textFill="WHITE">-->
-                     <!--<font>-->
-                        <!--<Font size="35.0" />-->
-                     <!--</font>-->
-                  <!--</Label>-->
-               <!--</children>-->
             </Pane>
          </center>
       </BorderPane>

@@ -41,10 +41,6 @@ public class Deck {
 		Shuffle();
 	}
 
-	public void setCardsRemaining() {
-		this.cardsRemaining--;
-	}
-
 	/**
 	 * get deckOfCards
 	 * @return array of cards (DECK)

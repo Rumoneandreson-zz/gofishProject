@@ -53,7 +53,7 @@ public class Hand {
         hand.display();
     }
 
-    public boolean checkforBook(){
+    public boolean checkForBook(){
 	    if (hand.isThereAPair()){
 	    	handCounter -= 2;
 	        books++;
@@ -62,4 +62,7 @@ public class Hand {
 	    return false;
     }
 
+    public boolean isHandEmpty() {
+		return hand.isEmpty();
+	}
 }
