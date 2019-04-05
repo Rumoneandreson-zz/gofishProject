@@ -6,9 +6,6 @@ public class Card{
 	private String suite;
 	private String rank;
 
-	private static final int width = 130;
-	private static final int height = 180;
-
 	/**
 	 * Primary Constructors
 	 * @param suite
@@ -37,16 +34,8 @@ public class Card{
 		return suite;
 	}
 
-	public void setSuite(String suite) {
-		this.suite = suite;
-	}
-
 	public String getRank() {
 		return rank;
-	}
-
-	public void setRank(String rank) {
-		this.rank = rank;
 	}
 
 	@Override

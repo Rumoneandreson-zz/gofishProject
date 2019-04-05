@@ -84,22 +84,19 @@ public class Controller {
         Books(human_player.getPlayer_hand());
         renderHands(human_player);
         // add cards to human hand if there is none
+        System.out.println("Human count :" + human_player.getPlayer_hand().getHandCounter());
         checkHand(human_player.getPlayer_hand());
         renderHands(human_player);
         bookCounter_human.setText(Integer.toString(human_player.getPlayer_hand().getBooks()));
-
 
         // after the player's turn finished completely then then its the computer's turn
         checkHand(computer_player.getPlayer_hand());
         renderHands(computer_player);
 
-        System.out.println(human_player.getPlayer_hand().isHandEmpty());
-        System.out.println(computer_player.getPlayer_hand().isHandEmpty());
 
         if (cards.getCardsRemaining() == 0 && human_player.getPlayer_hand().isHandEmpty() && computer_player.getPlayer_hand().isHandEmpty()){
             checkWinner();
         }
-
 
         computer_turn();
 
@@ -131,7 +128,7 @@ public class Controller {
      * @param playerHand
      */
     private void checkHand(Hand playerHand){
-        if (playerHand.isHandEmpty()){
+        if (playerHand.getHandCounter() == 0){
             refill_hand(playerHand);
         }
     }
@@ -217,6 +214,7 @@ public class Controller {
         renderHands(computer_player);
         Books(computer_player.getPlayer_hand());
         renderHands(computer_player);
+        System.out.println("Computer count :" + computer_player.getPlayer_hand().getHandCounter());
         checkHand(computer_player.getPlayer_hand());
         renderHands(computer_player);
 
@@ -232,7 +230,7 @@ public class Controller {
     private Hand createHand() {
         Hand new_hand = new Hand();
         // check if the deck is empty else null pointer exception
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             new_hand.addCard(cards.dealCard());
         }
         return new_hand;
@@ -242,16 +240,20 @@ public class Controller {
     private void refill_hand(Hand playerHand){
         // hand refill is done only if the hand is empty
         // assume that the hand is empty before being passed in
-        if (cards.getCardsRemaining() >= 5){
-            // re fill the hand
-            for (int i = 0; i < 5; i++) {
-                playerHand.addCard(cards.dealCard());
+        if (!(cards.getCardsRemaining() == 0)){
+            if (cards.getCardsRemaining() >= 4){
+                // re fill the hand
+                for (int i = 0; i < 4; i++) {
+                    playerHand.addCard(cards.dealCard());
+                }
+            } else {
+                // give the hand what is left
+                for (int i = 0; i < cards.getCardsRemaining(); i++) {
+                    playerHand.addCard(cards.dealCard());
+                }
             }
-        } else {
-            // give the hand what is left
-            for (int i = 0; i < cards.getCardsRemaining(); i++) {
-                playerHand.addCard(cards.dealCard());
-            }
+        }else{
+            Alert.Alert("No Card", "There are no cards remaining in the deck", "close");
         }
         cardRemainingcount.setText(Integer.toString(cards.getCardsRemaining()));
     }
