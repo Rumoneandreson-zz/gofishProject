@@ -44,7 +44,7 @@
                   <Insets right="20.0" />
                </BorderPane.margin>
                <children>
-                  <Label fx:id="cardRemainingtext" layoutX="9.0" layoutY="69.0" text="Cards remaining" textFill="WHITE" />
+                  <Label layoutX="9.0" layoutY="69.0" text="Cards remaining" textFill="WHITE" />
                   <Label fx:id="cardRemainingcount" layoutX="54.0" layoutY="93.0" text="52" textFill="WHITE" />
                </children>
             </Pane>

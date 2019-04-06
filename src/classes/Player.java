@@ -11,9 +11,9 @@ public class Player {
         this.player_hand = player_hand;
     }
 
-
+//  default constructor
     public Player(){this(null);}
-
+//  gets the player hand
     public Hand getPlayer_hand() {
         return player_hand;
     }

@@ -9,10 +9,6 @@ public class LinkedList {
 		this.head = null;
 	}
 
-	public Node getHead() {
-		return head;
-	}
-
 	public boolean isEmpty() {
 		return head == null;
 	}
@@ -20,7 +16,6 @@ public class LinkedList {
 	@SuppressWarnings("unused")
 	private boolean isFull() {
 		Node tmp = new Node();
-		
 		if (tmp == null) {
 			return true;
 		} else {
@@ -28,7 +23,12 @@ public class LinkedList {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Insert new card at the front of the list
+	 * @param next
+	 * @return true if added successfully false if it wasnt
+	 */
 	public boolean insert(Node next) {
 		if (isFull()) {
 			System.out.println("The list is full");
@@ -65,48 +65,57 @@ public class LinkedList {
 		return false;
 	}
 
+	/**
+	 * Removes a node from the list based on the string passed in
+	 * @param cardRank
+	 * @return
+	 */
 	public Node remove(String cardRank){
 		if (!isEmpty()){
 			Node tmp = head;
 			Node prev = head;
-			Node card_removed = new Node();
-			while (tmp != null){
-				if (head.getData().getRank().equals(cardRank)) {
-					tmp = head.getNext();
-					card_removed = head;
-					head = null;
-					head = tmp;
-					return card_removed;
-				} else {
-					if (tmp.getData().getRank().equals(cardRank)){
+			Node card_removed;
+
+			if (head.getData().getRank().toLowerCase().equals(cardRank.toLowerCase())) {
+				tmp = head.getNext();
+				card_removed = head;
+				head = null;
+				head = tmp;
+				return card_removed;
+			} else {
+				while (tmp != null){
+					if (tmp.getData().getRank().toLowerCase().equals(cardRank.toLowerCase())){
 						prev.setNext(tmp.getNext());
-						card_removed = tmp;
+						card_removed = new Node(tmp.getData());
 						tmp = null;
 						return card_removed;
 					}
+					prev = tmp;
+					tmp = tmp.getNext();
 				}
-				prev = tmp;
-				tmp = tmp.getNext();
 			}
 		}
 		return null;
 	}
 
 
+	/**
+	 * searches for pair of of the same rank different suit and if found then the pair is removed
+	 * @return true if pair was found and cards removed false if vice versa
+	 */
 	public boolean isThereAPair(){
-
-//      sets the current card to head
+		// sets the current card to head
         Node current = head;
 
-//      loop until another one of the same type
+		// loop until another one of the same type
         while (current != null){
-//		    get the first element
+			// get the first element
 			Node tmp = head;
             while (tmp != null){
 
-                if (tmp.getData().getRank().equals(current.getData().getRank())) {
-                    if (!tmp.getData().getSuite().equals(current.getData().getSuite())){
-//                      remove both cards since as the pair is found
+                if (tmp.getData().getRank().toLowerCase().equals(current.getData().getRank().toLowerCase())) {
+                    if (!tmp.getData().getSuite().toLowerCase().equals(current.getData().getSuite().toLowerCase())){
+						// remove both cards since as the pair is found
                         remove(tmp.getData().getRank());
                         remove(current.getData().getRank());
                         return true;
@@ -121,7 +130,12 @@ public class LinkedList {
 	    return false;
     }
 
-    public Node returnNode(int index){
+	/**
+	 * find the information at an index of the list
+	 * @param index
+	 * @return data at specified index
+	 */
+	public Node dataAtIndex(int index){
 		Node tmp = head;
 		int i = 0;
 		Node node_card;
@@ -136,11 +150,27 @@ public class LinkedList {
 		return null;
 	}
 
+	// DEBUG
+	// displays all the items in the list
 	public void display() {
 		Node tmp = head;
 		while (tmp != null) {
 			tmp.getData().display();
 			tmp = tmp.getNext();
 		}
+	}
+
+	/**
+	 * counts all the nodes in the list
+	 * @return
+	 */
+	public int countList(){
+		int count = 0;
+		Node tmp = head;
+		while (tmp != null){
+			count++;
+			tmp = tmp.getNext();
+		}
+		return count;
 	}
 }

@@ -29,7 +29,7 @@ public class Alert {
         alert_message.setText("You asked for a card that is not in your hand");
 
         Label alert_message_penalty = new Label();
-        alert_message_penalty.setText("PENALTY: Card added to your hand");
+        alert_message_penalty.setText("PENALTY: You lose your turn");
 
 
         Button close = new Button("Accept Penalty");
