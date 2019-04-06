@@ -252,8 +252,6 @@ public class Controller {
                     playerHand.addCard(cards.dealCard());
                 }
             }
-        }else{
-            Alert.Alert("No Card", "There are no cards remaining in the deck", "close");
         }
         cardRemainingcount.setText(Integer.toString(cards.getCardsRemaining()));
     }
